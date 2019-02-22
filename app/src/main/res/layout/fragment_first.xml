@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".welcomePage.FirstFragment">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="456px"
+        android:layout_height="456px"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic1" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="395dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="48px"
+        android:text="@string/app_title"
+        android:textSize="60px"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="395dp"
+        android:layout_height="57dp"
+        android:gravity="center"
+        android:padding="48px"
+        android:text="@string/hello"
+        android:textSize="48px"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.815" />
+
+    <Button
+        android:id="@+id/button"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="114dp"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95" />
+
+</android.support.constraint.ConstraintLayout>

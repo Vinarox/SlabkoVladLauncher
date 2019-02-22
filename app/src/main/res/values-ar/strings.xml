@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">SlabkoVladLauncher</string>
+    <string name="title_activity_second">SecondActivity</string>
+    <string name="next">التالى</string>
+    <string name="app_description">وصف التطبيق</string>
+    <string name="app_title">SlabkoVladLauncher</string>
+    <string name="hello">أهلا بك</string>
+    <string name="light_theme">موضوع خفيف</string>
+    <string name="dark_theme">موضوع مظلم</string>
+    <string name="stand">تخطيط قياسي</string>
+    <string name="full">تخطيط كامل</string>
+    <string name="stand_info">صورة: 4 رموز في صف \ n المناظر الطبيعية: 6 رموز متتالية</string>
+    <string name="full_info">صورة: 5 رموز في صف \ n المناظر الطبيعية: 7 رموز متتالية</string>
+    <string name="grid">شبكة</string>
+    <string name="list">قائمة</string>
+    <string name="profile">الملف الشخصي</string>
+    <string name="settings">الإعدادات</string>
+    <string name="author_name">سلابكو فلاديسلاف</string>
+
+    <string name="settings_maquette">تخطيط قاذفة</string>
+    <string name="settings_theme">موضوع التطبيق</string>
+    <string name="settings_sort">فرز</string>
+    <string name="settings_sort_summary">موقع أيقونات التطبيق</string>
+
+    <string name="theme_title">موضوع</string>
+
+    <string name="maquette_title">تخطيط (صورة / منظر طبيعي)</string>
+    <string name="maquette_first">4/6</string>
+    <string name="maquette_second">5/7</string>
+    <string name="sort_type">نوع الفرز</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

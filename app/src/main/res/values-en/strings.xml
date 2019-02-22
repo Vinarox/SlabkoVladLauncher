@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">SlabkoVladLauncher</string>
+    <string name="title_activity_second">SecondActivity</string>
+    <string name="next">Next</string>
+    <string name="app_description">Application description</string>
+    <string name="app_title">SlabkoVladLauncher</string>
+    <string name="hello">Welcome</string>
+    <string name="light_theme">Light theme</string>
+    <string name="dark_theme">Dark theme</string>
+    <string name="stand">Standard layout</string>
+    <string name="full">Full layout</string>
+    <string name="stand_info">Portrait: 4 icons in a row \nLandscaping: 6 icons in a row</string>
+    <string name="full_info">Portrait: 5 icons in a row \ nLandscaping: 7 icons in a row</string>
+    <string name="grid">Grid</string>
+    <string name="list">List</string>
+    <string name="profile">Profile</string>
+    <string name="settings">Settings</string>
+    <string name="author_name">Slabko Vladislav</string>
+
+    <string name="settings_maquette">Layout LauncherPage</string>
+    <string name="settings_theme">Application theme</string>
+    <string name="settings_sort">Sorting</string>
+    <string name="settings_sort_summary">Location of application icons</string>
+
+    <string name="theme_title">Theme</string>
+
+    <string name="maquette_title">Layout (Portrait / Landscape)</string>
+    <string name="maquette_first">4/6</string>
+    <string name="maquette_second">5/7</string>
+    <string name="sort_type">Sorting type</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

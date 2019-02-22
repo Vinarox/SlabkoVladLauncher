@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="welcomePage.ThirdFragment">
+
+    <RadioGroup
+        android:id="@+id/radio1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="100dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp">
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@color/colorPrimary"
+            android:gravity="center"
+            android:checked="true"
+            android:text="@string/light_theme"
+            android:textSize="72px" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:gravity="center"
+            android:text="@string/dark_theme"
+            android:textSize="72px"
+            android:buttonTint="@color/colorPrimary" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/button3"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="114dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/radio1"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginBottom="30dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:text="@string/next"
+        app:layout_constraintBottom_toBottomOf="@id/radio1"
+        app:layout_constraintEnd_toEndOf="@id/radio1"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95" />
+
+</RelativeLayout>
