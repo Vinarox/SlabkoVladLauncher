@@ -3,6 +3,11 @@
     <group android:checkableBehavior="single">
         android:textSize="18sp"
         <item
+            android:id="@+id/nav_desk"
+            android:icon="@drawable/ic_desk"
+            android:title="@string/desk"
+            android:checked="true"/>
+        <item
             android:id="@+id/nav_grid"
             android:icon="@drawable/ic_grid"
             android:title="@string/grid"

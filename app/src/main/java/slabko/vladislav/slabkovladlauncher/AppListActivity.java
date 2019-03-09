@@ -5,8 +5,11 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.design.widget.NavigationView;
 
 
@@ -16,25 +19,27 @@ import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-
-import java.util.ArrayList;
+import android.widget.AdapterView;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
+import slabko.vladislav.slabkovladlauncher.additional.AppInfo;
+import slabko.vladislav.slabkovladlauncher.containers.Desktop;
 import slabko.vladislav.slabkovladlauncher.containers.GridFragment;
 import slabko.vladislav.slabkovladlauncher.containers.ListFragment;
 
 public class AppListActivity extends AppCompatActivity
-        implements GridFragment.OnFragmentInteractionListener,
-        ListFragment.OnFragmentInteractionListener,
-        PreferenceFragment.OnPreferenceStartFragmentCallback {
+        implements PreferenceFragment.OnPreferenceStartFragmentCallback {
 
-    private Fragment fragment1;
-    private Fragment fragment2;
-    private Fragment fragment3;
+    FragmentTransaction transaction;
+    private Fragment fragmentGrid;
+    private Fragment fragmentList;
+    private Fragment fragmentDesktop;
     private DrawerLayout mDrawerLayout;
     String[] str;
     private CharSequence title;
@@ -47,20 +52,15 @@ public class AppListActivity extends AppCompatActivity
         setContentView(R.layout.activity_app_list);
         str = getIntent().getStringExtra("number").split(" ");
 
-        final PackageManager pm = getPackageManager();
-        //List<AppInfo> apps = new ArrayList<>();
-        final List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragment1 = GridFragment.newInstance(this, str, packages);
-        //fragment2 = ListFragment.newInstance(this);
-        fragmentTransaction.add(R.id.content_frame, fragment1);
-        fragmentTransaction.commit();
-
-       Toolbar toolbar = findViewById(R.id.toolbar);
-       setSupportActionBar(toolbar);
-       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        transaction = getFragmentManager().beginTransaction();
+        fragmentDesktop = Desktop.newInstance(this);
+        transaction.add(R.id.content_frame, fragmentDesktop);
+        transaction.commit();
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
@@ -71,20 +71,28 @@ public class AppListActivity extends AppCompatActivity
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
-                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction = getFragmentManager().beginTransaction();
                         switch (menuItem.getItemId()) {
+                            case R.id.nav_desk:
+                                fragmentDesktop = Desktop.newInstance(AppListActivity.this);
+                                if (fragmentDesktop != null) {
+                                    transaction.replace(R.id.content_frame, fragmentDesktop);
+                                    transaction.addToBackStack(null);
+                                    transaction.commit();
+                                }
+                                break;
                             case R.id.nav_list:
-                                fragment2 = ListFragment.newInstance(AppListActivity.this);
-                                if (fragment2 != null) {
-                                    transaction.replace(R.id.content_frame, fragment2);
+                                fragmentList = ListFragment.newInstance(AppListActivity.this);
+                                if (fragmentList != null) {
+                                    transaction.replace(R.id.content_frame, fragmentList);
                                     transaction.addToBackStack(null);
                                     transaction.commit();
                                 }
                                 break;
                             case R.id.nav_grid:
-                                fragment1 = GridFragment.newInstance(AppListActivity.this, str, packages);
-                                if (fragment1 != null) {
-                                    transaction.replace(R.id.content_frame, fragment1);
+                                fragmentGrid = GridFragment.newInstance(AppListActivity.this, str);
+                                if (fragmentGrid != null) {
+                                    transaction.replace(R.id.content_frame, fragmentGrid);
                                     transaction.addToBackStack(null);
                                     transaction.commit();
                                 }
@@ -92,20 +100,11 @@ public class AppListActivity extends AppCompatActivity
                             case R.id.nav_settings:
                                 if (savedInstanceState == null) {
                                     transaction.replace(R.id.content_frame, (new AppListActivity.SettingsFragment()))
-                                            .commit();
-
-                                   /* transaction.replace(R.id.content_frame, (new AppListActivity.SettingsFragment()))
                                             .addToBackStack(null)
-                                            .commit();*/
+                                            .commit();
                                 } else {
                                     title = savedInstanceState.getCharSequence(TITLE_TAG);
                                 }
-                                /*supportFragmentManager.addOnBackStackChangedListener {
-                                if (supportFragmentManager.backStackEntryCount == 0) {
-                                    setTitle(R.string.title)
-                                }*/
-                                //}
-                            //supportActionBar?.setDisplayHomeAsUpEnabled(true)
                                 break;
                             default:
                                 break;
@@ -115,6 +114,7 @@ public class AppListActivity extends AppCompatActivity
                 });
     }
 
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -123,10 +123,6 @@ public class AppListActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
     }
 
 
@@ -141,6 +137,7 @@ public class AppListActivity extends AppCompatActivity
             behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         }*/
     }
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -194,6 +191,30 @@ public class AppListActivity extends AppCompatActivity
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             // Load the preferences from an XML resource
             setPreferencesFromResource(R.xml.sort, rootKey);
+        }
+    }
+
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.context_delete:
+                return true;
+            case R.id.context_number:
+                return true;
+            case R.id.context_info:
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 }

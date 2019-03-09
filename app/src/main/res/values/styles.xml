@@ -3,18 +3,18 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">#78909C</item>
-        <item name="colorPrimaryDark">#546E7A</item>
-        <item name="colorAccent">#FF4085</item>
-
+        <item name="colorPrimary">#607D8B</item>
+        <item name="colorPrimaryDark">#455A64</item>
+        <item name="colorAccent">#D500F9</item>
+        <item name="android:windowBackground">@color/white</item>
     </style>
 
     <style name="MyTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">#37474F</item>
-        <item name="colorPrimaryDark">#263238</item>
-        <item name="colorAccent">#FF4085</item>
-
+        <item name="colorPrimary">#523525</item>
+        <item name="colorPrimaryDark">#45BA64</item>
+        <item name="colorAccent">#D5DD59</item>
+        <item name="android:windowBackground">@color/colorPrimaryDark</item>
     </style>
 
 
@@ -31,4 +31,6 @@
     <style name="RadioButton" parent="@android:style/Widget.CompoundButton.RadioButton">
         <item name="android:button">@color/colorPrimary</item>
     </style>
+
+    <color name="white">#FFFF</color>
 </resources>
