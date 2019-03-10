@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class AppInfo {
     public static ArrayList<Drawable> images;
     public static ArrayList<String> names;
-    public static ArrayList<Intent> intents;
+    public  ArrayList<Intent> intents;
 
     public AppInfo(){
         this.images = new ArrayList<>();

@@ -82,12 +82,12 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(MyViewHolder holder, int position) {
+        final int pos = position;
         holder.view.setOnClickListener (new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(appInfo.intents.get(position));
-                //mContext.deleteFile()
+                mContext.startActivity(appInfo.intents.get(pos));
             }
         });
         /*holder.view.setOnLongClickListener (new View.OnLongClickListener() {

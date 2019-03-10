@@ -23,7 +23,6 @@ import java.util.concurrent.ExecutionException;
 
 import io.fabric.sdk.android.Fabric;
 import slabko.vladislav.slabkovladlauncher.AsyncTasks.AsyncAppsInfo;
-import slabko.vladislav.slabkovladlauncher.AsyncTasks.AsyncFavicon;
 import slabko.vladislav.slabkovladlauncher.global.Constants;
 import slabko.vladislav.slabkovladlauncher.welcomePage.FirstFragment;
 import slabko.vladislav.slabkovladlauncher.welcomePage.FourthFragment;
@@ -49,15 +48,15 @@ public class MainActivity extends AppCompatActivity {
         display.getSize(size);
         new Constants(size.x, size.y);
 
-        AsyncAppsInfo appTask = new AsyncAppsInfo();
-        appTask.execute(getApplicationContext());
+        //AsyncAppsInfo appTask = new AsyncAppsInfo();
+        //appTask.execute(getApplicationContext());
 
 
-        YandexMetricaConfig config = YandexMetricaConfig.newConfigBuilder(API_key).build();
-        YandexMetrica.activate(getApplicationContext(), config);
-        YandexMetrica.enableActivityAutoTracking(getApplication());
+        //YandexMetricaConfig config = YandexMetricaConfig.newConfigBuilder(API_key).build();
+        //YandexMetrica.activate(getApplicationContext(), config);
+        //YandexMetrica.enableActivityAutoTracking(getApplication());
 
-        Fabric.with(this, new Crashlytics());
+        //Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
         pager = (ViewPager) findViewById(R.id.pager);
         pagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());

@@ -11,13 +11,19 @@
         android:icon="@mipmap/ic1"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:theme="@style/AppTheme"
-        android:supportsRtl="true">
-
-        <activity android:name=".ProfileActivity"
-            android:parentActivityName=".AppListActivity"/>
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".PreStartActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:parentActivityName=".AppListActivity" />
         <activity android:name=".AppListActivity" />
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:parentActivityName=".AppListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

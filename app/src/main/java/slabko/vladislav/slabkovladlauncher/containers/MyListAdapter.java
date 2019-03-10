@@ -1,12 +1,7 @@
 package slabko.vladislav.slabkovladlauncher.containers;
 
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
@@ -16,10 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
+import slabko.vladislav.slabkovladlauncher.AppListActivity;
 import slabko.vladislav.slabkovladlauncher.R;
 import slabko.vladislav.slabkovladlauncher.additional.AppInfo;
 
@@ -57,19 +49,14 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyViewHold
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(MyViewHolder holder, int position) {
+        final int pos = position;
         holder.view.setOnClickListener (new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(appInfo.intents.get(position));
+                mContext.startActivity(appInfo.intents.get(pos));
             }
         });
-       /* holder.view.setOnLongClickListener (new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return true;
-            }
-        });*/
         holder.view.setOnLongClickListener(new MyOnLongClickListener(position));
         ImageView avatar = holder.view.findViewById(R.id.avatar);
         TextView app_name = holder.view.findViewById(R.id.app_name);
@@ -77,7 +64,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyViewHold
         app_name.setText(appInfo.names.get(position));
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
+
     @Override
     public int getItemCount() {
         return appInfo.images.size();

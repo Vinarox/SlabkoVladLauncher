@@ -45,6 +45,10 @@ public class AppListActivity extends AppCompatActivity
     private CharSequence title;
     private final String TITLE_TAG = "settingsActivityTitle";
 
+    public void mStartActivity(Intent intent){
+        startActivity(intent);
+    }
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
