@@ -10,26 +10,42 @@
         android:allowBackup="false"
         android:icon="@mipmap/ic1"
         android:label="@string/app_name"
+        android:launchMode="singleTask"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:stateNotNeeded="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <receiver
+            android:name=".AsyncTasks.DeleteControlReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package"/>
+            </intent-filter>
+
+        </receiver>
+
         <activity android:name=".PreStartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ProfileActivity"
             android:parentActivityName=".AppListActivity" />
-        <activity android:name=".AppListActivity" />
+        <activity android:name=".AppListActivity" >
+            <intent-filter>
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>>
         <activity
             android:name=".MainActivity"
             android:parentActivityName=".AppListActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data

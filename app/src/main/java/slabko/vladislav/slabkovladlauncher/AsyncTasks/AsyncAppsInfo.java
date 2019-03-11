@@ -24,7 +24,8 @@ public class AsyncAppsInfo extends AsyncTask<Context, Void, AppInfo> {
         final List<ApplicationInfo> appInfo = pm.getInstalledApplications(PackageManager.GET_META_DATA);
         for (ApplicationInfo app: appInfo){
             try {
-                if (!isSystemPackage(pm.getPackageInfo(app.packageName, 0))) {
+                if (!isSystemPackage(pm.getPackageInfo(app.packageName, 0)) &&
+                        !(app.packageName.equals(context[0].getPackageName()))) {
                     info.images.add(app.loadIcon(pm));
                     info.names.add(app.loadLabel(context[0].getPackageManager()).toString());
                     info.intents.add(pm.getLaunchIntentForPackage(app.packageName));

@@ -33,4 +33,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="desk">Рабочий стол</string>
+    <string name="context_delete">Удалить</string>
+    <string name="context_number">Частота</string>
+    <string name="context_info">Информация</string>
 </resources>

@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import slabko.vladislav.slabkovladlauncher.AppListActivity;
 import slabko.vladislav.slabkovladlauncher.R;
 import slabko.vladislav.slabkovladlauncher.additional.AppInfo;
 import slabko.vladislav.slabkovladlauncher.global.Constants;
+import slabko.vladislav.slabkovladlauncher.listeners.ContextMenuListener;
 
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHolder> {
     private Context mContext;
@@ -38,6 +40,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
     private int gap = 10;
     private AppInfo appInfo;
     private LayoutInflater ltInflater;
+    private MenuInflater menuInflater;
 
 
     // Provide a reference to the views for each data item
@@ -54,9 +57,10 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public RecycleAdapter(Context c, int numbCol, AppInfo appInfo, LayoutInflater ltInflater) {
+    public RecycleAdapter(Context c, int numbCol, AppInfo appInfo, LayoutInflater ltInflater, MenuInflater menuInflater) {
         this.ltInflater = ltInflater;
         this.appInfo = appInfo;
+        this.menuInflater = menuInflater;
         mContext = c;
         this.numbCol = numbCol;
         WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
@@ -100,6 +104,8 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
         TextView app_name = holder.view.findViewById(R.id.app_name_vert);
         avatar.setImageDrawable(appInfo.images.get(position));
         app_name.setText(appInfo.names.get(position));
+        holder.itemView.setOnCreateContextMenuListener(new ContextMenuListener(menuInflater,
+                appInfo.intents.get(position), position, holder.itemView));
     }
 
     @Override

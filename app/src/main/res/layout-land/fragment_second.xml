@@ -15,7 +15,7 @@
             android:layout_marginTop="60dp"
             android:layout_toStartOf="@+id/textViewSecond"
             android:layout_toLeftOf="@+id/textViewSecond"
-            android:src="@drawable/i2" />
+            android:src="@drawable/my_icon" />
 
         <TextView
             android:id="@+id/textViewSecond"

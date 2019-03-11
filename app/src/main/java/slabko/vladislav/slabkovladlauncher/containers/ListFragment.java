@@ -17,7 +17,7 @@ import slabko.vladislav.slabkovladlauncher.global.Constants;
 
 public class ListFragment extends Fragment {
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private static RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private static Context mContext;
 
@@ -46,17 +46,22 @@ public class ListFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_list, container, false);
         recyclerView = (RecyclerView) v.findViewById(R.id.my_view);
         recyclerView.setHasFixedSize(true);
-        registerForContextMenu(recyclerView);
+        //registerForContextMenu(recyclerView);
 
         layoutManager = new LinearLayoutManager((getActivity()));
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new MyListAdapter((getActivity()), inflater, Constants.apps);
+        mAdapter = new MyListAdapter((getActivity()), inflater, Constants.apps,
+                ((AppListActivity)getActivity()).getMenuInflater());
         recyclerView.setAdapter(mAdapter);
         return v;
     }
 
     void mStartActivity(Intent intent){
         mContext.startActivity(intent);
+    }
+
+    public static void notifyMe() {
+        mAdapter.notifyDataSetChanged();
     }
 }

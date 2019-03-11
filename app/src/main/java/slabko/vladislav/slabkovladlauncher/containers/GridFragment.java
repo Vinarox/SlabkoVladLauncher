@@ -21,13 +21,14 @@ import android.widget.AdapterView;
 import java.util.List;
 import java.util.Map;
 
+import slabko.vladislav.slabkovladlauncher.AppListActivity;
 import slabko.vladislav.slabkovladlauncher.R;
 import slabko.vladislav.slabkovladlauncher.additional.AppInfo;
 import slabko.vladislav.slabkovladlauncher.global.Constants;
 
 public class GridFragment extends Fragment {
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private static RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private static String[] str = {"4", "6"};
     private static Context mContext;
@@ -53,7 +54,7 @@ public class GridFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_grid, container, false);
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
-        registerForContextMenu(mRecyclerView);
+        //registerForContextMenu(mRecyclerView);
 
         //str = ((AppListActivity)getActivity()).getIntent().getStringExtra("number").split(" ");
         int numbCol = 0;
@@ -66,10 +67,14 @@ public class GridFragment extends Fragment {
         mLayoutManager = new GridLayoutManager((getActivity()), numbCol);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new RecycleAdapter((getActivity()), numbCol, Constants.apps, inflater);
+        mAdapter = new RecycleAdapter((getActivity()), numbCol, Constants.apps, inflater,
+                ((AppListActivity)getActivity()).getMenuInflater());
         mRecyclerView.setAdapter(mAdapter);
 
         return v;
     }
 
+    public static void notifyMe() {
+                mAdapter.notifyDataSetChanged();
+    }
 }
