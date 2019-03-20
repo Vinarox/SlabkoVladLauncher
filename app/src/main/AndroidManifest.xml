@@ -5,6 +5,8 @@
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
         android:allowBackup="false"
@@ -12,9 +14,10 @@
         android:label="@string/app_name"
         android:launchMode="singleTask"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:stateNotNeeded="true"
+        android:stateNotNeeded="false"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <receiver
             android:name=".AsyncTasks.DeleteControlReceiver"
             android:enabled="true"
@@ -26,26 +29,24 @@
 
         </receiver>
 
-        <activity android:name=".PreStartActivity">
+        <activity android:name=".AppLauncher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ProfileActivity"
             android:parentActivityName=".AppListActivity" />
-        <activity android:name=".AppListActivity" >
+        <activity android:name=".AppListActivity"
+            android:allowBackup="false">
             <intent-filter>
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>>
-        <activity
-            android:name=".MainActivity"
-            android:parentActivityName=".AppListActivity">
+        <activity android:name=".MainActivity"
+            android:allowBackup="false">
         </activity>
 
         <meta-data

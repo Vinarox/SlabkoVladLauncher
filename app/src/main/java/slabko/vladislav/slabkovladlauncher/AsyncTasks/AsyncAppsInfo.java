@@ -9,7 +9,9 @@ import android.os.AsyncTask;
 import java.util.List;
 
 import slabko.vladislav.slabkovladlauncher.additional.AppInfo;
+import slabko.vladislav.slabkovladlauncher.additional.ItemsInfo.ItemInfo;
 import slabko.vladislav.slabkovladlauncher.global.Constants;
+import slabko.vladislav.slabkovladlauncher.global.MyLoads;
 
 public class AsyncAppsInfo extends AsyncTask<Context, Void, AppInfo> {
     @Override
@@ -22,14 +24,23 @@ public class AsyncAppsInfo extends AsyncTask<Context, Void, AppInfo> {
         AppInfo info = new AppInfo();
         final PackageManager pm = context[0].getPackageManager();
         final List<ApplicationInfo> appInfo = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+        int index = 0;
         for (ApplicationInfo app: appInfo){
             try {
                 if (!isSystemPackage(pm.getPackageInfo(app.packageName, 0)) &&
                         !(app.packageName.equals(context[0].getPackageName()))) {
-                    info.images.add(app.loadIcon(pm));
-                    info.names.add(app.loadLabel(context[0].getPackageManager()).toString());
-                    info.intents.add(pm.getLaunchIntentForPackage(app.packageName));
+                    ItemInfo itemInfo = new ItemInfo(
+                            app.loadIcon(pm),
+                            app.loadLabel(context[0].getPackageManager()).toString(),
+                            pm.getLaunchIntentForPackage(app.packageName),
+                            app.packageName,
+                            pm.getPackageInfo(app.packageName, 0).firstInstallTime,
+                            index
+                            );
+                    index++;
+                    info.itemSet.add(itemInfo);
                 }
+                AppInfo.sortInfo(false);
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
             }

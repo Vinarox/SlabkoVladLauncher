@@ -9,12 +9,16 @@ import android.support.v7.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import slabko.vladislav.slabkovladlauncher.MainActivity;
+import slabko.vladislav.slabkovladlauncher.PreStartActivity;
 import slabko.vladislav.slabkovladlauncher.R;
+import slabko.vladislav.slabkovladlauncher.global.Constants;
 
 public class ThirdFragment extends Fragment {
+    private static SharedPreferences sharedPreferences;
     public ThirdFragment() {
         // Required empty public constructor
     }
@@ -37,7 +41,8 @@ public class ThirdFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_third, container, false);
-        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences((MainActivity)getContext());
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Constants.appContext);
 
         final View view = v.findViewById(R.id.button3);
         view.setOnClickListener(new View.OnClickListener() {
@@ -48,20 +53,28 @@ public class ThirdFragment extends Fragment {
         });
 
         RadioGroup radioGroup = (RadioGroup) v.findViewById(R.id.radio1);
+        RadioButton rbThemeLight = v.findViewById(R.id.radioButton1);
+        RadioButton rbThemeDark = v.findViewById(R.id.radioButton2);
+        if (Constants.THEME_CURRENT_ID == Constants.THEME_DARK_ID) {
+            rbThemeDark.setChecked(true);
+        } else
+            rbThemeLight.setChecked(true);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.radioButton1:
-                     /*   sharedPreferences
+                     sharedPreferences
                                 .edit()
-                                .putString(PreferenceConstants.KEY_THEME, PreferenceConstants.THEME_LIGHT)
-                                .apply();*/
-                        ((MainActivity)getActivity()).setMyTheme(1);
+                                .putString(Constants.KEY_THEME, Constants.THEME_LIGHT)
+                                .apply();
                         break;
                     case R.id.radioButton2:
-                        ((MainActivity)getActivity()).setMyTheme(2);
+                        sharedPreferences
+                                .edit()
+                                .putString(Constants.KEY_THEME, Constants.THEME_DARK)
+                                .apply();
                         break;
                     default:
                         break;

@@ -5,6 +5,8 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.res.TypedArray;
 import android.support.design.widget.NavigationView;
 
 
@@ -12,24 +14,21 @@ import android.support.v14.preference.PreferenceFragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
-import android.view.ContextMenu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import slabko.vladislav.slabkovladlauncher.AsyncTasks.DeleteControlReceiver;
+import slabko.vladislav.slabkovladlauncher.additional.AppInfo;
 import slabko.vladislav.slabkovladlauncher.containers.Desktop;
 import slabko.vladislav.slabkovladlauncher.containers.GridFragment;
 import slabko.vladislav.slabkovladlauncher.containers.ListFragment;
+import slabko.vladislav.slabkovladlauncher.global.Constants;
 
-public class AppListActivity extends AppCompatActivity
+public class AppListActivity extends PreStartActivity
         implements PreferenceFragment.OnPreferenceStartFragmentCallback {
 
     FragmentTransaction transaction;
@@ -37,10 +36,10 @@ public class AppListActivity extends AppCompatActivity
     private Fragment fragmentList;
     private Fragment fragmentDesktop;
     private DrawerLayout mDrawerLayout;
-    String[] str;
     private CharSequence title;
     private final String TITLE_TAG = "settingsActivityTitle";
     private DeleteControlReceiver deleteControlReceiver = new DeleteControlReceiver();
+
 
     public void mStartActivity(Intent intent){
         startActivity(intent);
@@ -51,13 +50,16 @@ public class AppListActivity extends AppCompatActivity
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_list);
-        str = getIntent().getStringExtra("number").split(" ");
+
 
         this.registerReceiver(deleteControlReceiver, new IntentFilter("android.intent.action.TIME_TICK"));
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+
+
+
+        /*Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
 
         fragmentList = ListFragment.newInstance(AppListActivity.this);
         transaction = getFragmentManager().beginTransaction();
@@ -65,7 +67,7 @@ public class AppListActivity extends AppCompatActivity
         transaction.commit();
 
 
-        fragmentGrid = GridFragment.newInstance(AppListActivity.this, str);
+        fragmentGrid = GridFragment.newInstance(AppListActivity.this);
         transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.content_frame, fragmentGrid);
         transaction.commit();
@@ -75,7 +77,6 @@ public class AppListActivity extends AppCompatActivity
         fragmentDesktop = Desktop.newInstance(this);
         transaction.replace(R.id.content_frame, fragmentDesktop);
         transaction.commit();
-
 
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
@@ -106,7 +107,7 @@ public class AppListActivity extends AppCompatActivity
                                 }
                                 break;
                             case R.id.nav_grid:
-                                fragmentGrid = GridFragment.newInstance(AppListActivity.this, str);
+                                fragmentGrid = GridFragment.newInstance(AppListActivity.this);
                                 if (fragmentGrid != null) {
                                     transaction.replace(R.id.content_frame, fragmentGrid);
                                     transaction.addToBackStack(null);
@@ -143,6 +144,20 @@ public class AppListActivity extends AppCompatActivity
             return true;
         }
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // Save current activity title so we can set it again after a configuration change
+        outState.putCharSequence(TITLE_TAG, title);
+    }
+
+
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        title = savedInstanceState.getCharSequence(TITLE_TAG);
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -166,13 +181,6 @@ public class AppListActivity extends AppCompatActivity
         }*/
     }
 
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        // Save current activity title so we can set it again after a configuration change
-        outState.putCharSequence(TITLE_TAG, title);
-    }
 
     @Override
     public boolean onSupportNavigateUp(){
@@ -201,24 +209,10 @@ public class AppListActivity extends AppCompatActivity
 
 
     public static class SettingsFragment extends PreferenceFragment {
-       /* @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.settings);
-        }*/
-
         @Override
         public void onCreatePreferences(Bundle bundle, String s) {
             setPreferencesFromResource(R.xml.settings, s);
-        }
-    }
 
-
-    public static class SettingsSort extends PreferenceFragment{
-        @Override
-        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-            // Load the preferences from an XML resource
-            setPreferencesFromResource(R.xml.sort, rootKey);
         }
     }
 
@@ -230,6 +224,21 @@ public class AppListActivity extends AppCompatActivity
             unregisterReceiver(deleteControlReceiver);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        int UNINSTALL_REQUEST_CODE = 1;
+        System.out.println();
+
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == UNINSTALL_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                AppInfo.deleteFromLists(String.valueOf(data.getData()).split(":")[1]);
+            } else if (resultCode == RESULT_CANCELED) {
+            } else if (resultCode == RESULT_FIRST_USER) {
+            }
         }
     }
 }

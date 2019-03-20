@@ -57,23 +57,24 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyViewHold
         holder.view.setOnClickListener (new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(appInfo.intents.get(pos));
+                mContext.startActivity(appInfo.itemSet.get(pos).intent);
+                appInfo.itemSet.get(pos).numOfLoads++;
             }
         });
         //holder.view.setOnLongClickListener(new MyOnLongClickListener(position));
         ImageView avatar = holder.view.findViewById(R.id.avatar);
         TextView app_name = holder.view.findViewById(R.id.app_name);
-        avatar.setImageDrawable(appInfo.images.get(position));
-        app_name.setText(appInfo.names.get(position));
+        avatar.setImageDrawable(appInfo.itemSet.get(position).image);
+        app_name.setText(appInfo.itemSet.get(position).name);
         ContextMenuListener contextMenuListener = new ContextMenuListener(menuInflater,
-                appInfo.intents.get(position), position, holder.itemView);
+                appInfo.itemSet.get(position).intent, position, holder.itemView);
         holder.view.setOnCreateContextMenuListener(contextMenuListener);
     }
 
 
     @Override
     public int getItemCount() {
-        return appInfo.images.size();
+        return appInfo.itemSet.size();
     }
 
     class MyOnLongClickListener implements View.OnLongClickListener {

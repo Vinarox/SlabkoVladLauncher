@@ -2,14 +2,19 @@ package slabko.vladislav.slabkovladlauncher.listeners;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+
+import slabko.vladislav.slabkovladlauncher.AppListActivity;
 import slabko.vladislav.slabkovladlauncher.R;
 import slabko.vladislav.slabkovladlauncher.additional.AppInfo;
+import slabko.vladislav.slabkovladlauncher.containers.GridFragment;
+import slabko.vladislav.slabkovladlauncher.containers.ListFragment;
 
 public class ContextMenuListener extends AppCompatActivity
         implements View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener{
@@ -61,14 +66,24 @@ public class ContextMenuListener extends AppCompatActivity
                 Intent delIntent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE);
                 delIntent.setData(Uri.parse("package:" + intent.getPackage()));
                 delIntent.putExtra(Intent.EXTRA_RETURN_RESULT, true);
-                delIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //delIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                delIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //delIntent.setPackage(intent.getPackage());
                 //startActivityForResult(delIntent, 1);
 
-                AppInfo.deleteItem(position);
+                AppInfo.deleteItem(position, delIntent);
                 return true;
             case R.id.context_number:
+                ListFragment.startToast(String.valueOf(AppInfo.itemSet.get(position).numOfLoads));
+                GridFragment.startToast(String.valueOf(AppInfo.itemSet.get(position).numOfLoads));
                 return true;
             case R.id.context_info:
+                Intent infoIntent = new Intent(android.provider.Settings
+                        .ACTION_APPLICATION_DETAILS_SETTINGS);
+                infoIntent.setData(Uri.parse("package:" + intent.getPackage()));
+                infoIntent.putExtra(Intent.EXTRA_RETURN_RESULT, true);
+                infoIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                AppInfo.startSettings(infoIntent);
                 return true;
             default:
                 return false;

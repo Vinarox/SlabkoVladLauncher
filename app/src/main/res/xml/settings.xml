@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ListPreference
+    <!--<ListPreference
         app:key="list_theme"
         app:title="@string/settings_theme"
         app:entries="@array/entries"
-        app:entryValues="@array/entry_values" />
+        app:entryValues="@array/entry_values"
+        app:defaultValue="1"/>
+        -->
+
+    <SwitchPreferenceCompat
+        android:key="list_theme"
+        android:title="@string/dark_theme" />
 
     <ListPreference
         app:key="list_maquette"
         app:title="@string/maquette_title"
         app:entries="@array/entries_maquette"
-        app:entryValues="@array/entry_values"/>
+        app:entryValues="@array/theme_values"
+        app:defaultValue="1"/>
 
-    <Preference
-        defaultValue="@string/settings_sort"
-        app:fragment="slabko.vladislav.slabkovladlauncher.AppListActivity$SettingsSort"
-        app:summary="@string/settings_sort_summary"
-        app:title="@string/settings_sort" />
+    <ListPreference
+        app:key="sort"
+        app:title="@string/settings_sort"
+        app:entries="@array/settings_sort"
+        app:entryValues="@array/settings_sort_values"
+        app:defaultValue="no_sort"/>
 
 </PreferenceScreen>

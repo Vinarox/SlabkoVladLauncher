@@ -2,9 +2,11 @@ package slabko.vladislav.slabkovladlauncher.welcomePage;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +14,13 @@ import android.widget.RadioButton;
 
 import slabko.vladislav.slabkovladlauncher.AppListActivity;
 import slabko.vladislav.slabkovladlauncher.R;
+import slabko.vladislav.slabkovladlauncher.global.Constants;
 
 public class FourthFragment extends Fragment {
     private RadioButton thirdLayoutRB_1;
     private RadioButton thirdLayoutRB_2;
     private String params = "4 6";
+    private static SharedPreferences sharedPreferences;
 
     public FourthFragment() {
         // Required empty public constructor
@@ -39,6 +43,7 @@ public class FourthFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Constants.appContext);
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_fourth, container, false);
 
@@ -58,6 +63,14 @@ public class FourthFragment extends Fragment {
 
         thirdLayoutRB_2 = v.findViewById(R.id.radioButton4);
         thirdLayoutRB_2.setOnClickListener(radioButtonClickListener);
+
+        if(Constants.MODEL_CURRENT.equals(Constants.MODEL_DEFAULT)) {
+            thirdLayoutRB_1.setChecked(true);
+            thirdLayoutRB_2.setChecked(false);
+        } else {
+            thirdLayoutRB_1.setChecked(false);
+            thirdLayoutRB_2.setChecked(true);
+        }
         return v;
     }
 
@@ -69,12 +82,20 @@ public class FourthFragment extends Fragment {
                 case R.id.radioButton3:
                     rb.setChecked(true);
                     thirdLayoutRB_2.setChecked(false);
-                    params = new String("4 6");
+                    //params = new String("4 6");
+                    sharedPreferences
+                            .edit()
+                            .putString(Constants.KEY_MODEL, Constants.MODEL_DEFAULT)
+                            .apply();
                     break;
                 case R.id.radioButton4:
                     rb.setChecked(true);
                     thirdLayoutRB_1.setChecked(false);
-                    params = new String("5 7");
+                    //params = new String("5 7");
+                    sharedPreferences
+                            .edit()
+                            .putString(Constants.KEY_MODEL, Constants.MODEL_TIGHT)
+                            .apply();
                     break;
                 default:
                     break;

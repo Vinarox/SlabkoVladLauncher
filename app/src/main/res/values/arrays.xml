@@ -6,12 +6,32 @@
     </string-array>
 
     <string-array name="entry_values">
-        <item>1</item>
-        <item>2</item>
+        <item>AppTheme</item>
+        <item>MyTheme</item>
     </string-array>
 
     <string-array name="entries_maquette">
         <item>@string/maquette_first</item>
         <item>@string/maquette_second</item>
+    </string-array>
+
+    <string-array name="theme_values">
+        <item>default</item>
+        <item>tight</item>
+    </string-array>
+
+
+    <string-array name="settings_sort">
+        <item>Без сортировки</item>
+        <item>По дате установки</item>
+        <item>A-Z</item>
+        <item>Z-A</item>
+    </string-array>
+
+    <string-array name="settings_sort_values">
+        <item>no_sort</item>
+        <item>date_sort</item>
+        <item>AZ_sort</item>
+        <item>ZA_sort</item>
     </string-array>
 </resources>

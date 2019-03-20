@@ -3,11 +3,17 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">#607D8B</item>
-        <item name="colorPrimaryDark">#455A64</item>
-        <item name="colorAccent">#D500F9</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/white</item>
+
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
+
 
     <style name="MyTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
@@ -15,14 +21,13 @@
         <item name="colorPrimaryDark">#45BA64</item>
         <item name="colorAccent">#D5DD59</item>
         <item name="android:windowBackground">@color/colorPrimaryDark</item>
+
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
-
-    <style name="AppTheme.NoActionBar">
-        <item name="android:theme">@android:style/Theme.Light.NoTitleBar</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
@@ -32,5 +37,5 @@
         <item name="android:button">@color/colorPrimary</item>
     </style>
 
-    <color name="white">#FFFF</color>
+
 </resources>
